@@ -4,17 +4,18 @@ import { SearchFilters } from "@/components/listings/search-filters"
 import { Condition, ListingStatus } from "@prisma/client"
 
 interface BrowsePageProps {
-    searchParams: {
+    searchParams: Promise<{
         q?: string
         category?: string
         condition?: string
         location?: string
         page?: string
-    }
+    }>
 }
 
 export default async function BrowsePage({ searchParams }: BrowsePageProps) {
-    const { q, category, condition, location } = await searchParams
+    const params = await searchParams
+    const { q, category, condition, location } = params
 
     const where: any = {
         status: ListingStatus.AVAILABLE,
@@ -61,7 +62,11 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                 <p className="text-muted-foreground">
                     Find textbooks and course materials from other students.
                 </p>
-                <SearchFilters categories={categories} locations={locations} />
+                <SearchFilters
+                    categories={categories}
+                    locations={locations}
+                    initialValues={params}
+                />
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

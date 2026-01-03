@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,16 +16,21 @@ import { useState } from "react"
 interface SearchFiltersProps {
     categories: { id: string; name: string }[]
     locations: { id: string; name: string }[]
+    initialValues?: {
+        q?: string
+        category?: string
+        condition?: string
+        location?: string
+    }
 }
 
-export function SearchFilters({ categories, locations }: SearchFiltersProps) {
+export function SearchFilters({ categories, locations, initialValues = {} }: SearchFiltersProps) {
     const router = useRouter()
-    const searchParams = useSearchParams()
 
-    const [query, setQuery] = useState(searchParams.get("q") || "")
-    const [category, setCategory] = useState(searchParams.get("category") || "all")
-    const [condition, setCondition] = useState(searchParams.get("condition") || "all")
-    const [location, setLocation] = useState(searchParams.get("location") || "all")
+    const [query, setQuery] = useState(initialValues.q || "")
+    const [category, setCategory] = useState(initialValues.category || "all")
+    const [condition, setCondition] = useState(initialValues.condition || "all")
+    const [location, setLocation] = useState(initialValues.location || "all")
 
     function onSearch() {
         const params = new URLSearchParams()

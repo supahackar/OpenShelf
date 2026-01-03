@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: ["@prisma/client", "better-sqlite3"],
+  serverExternalPackages: ["@prisma/client", "@libsql/client"],
 };
 
 export default nextConfig;

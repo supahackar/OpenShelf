@@ -1,12 +1,15 @@
 import { PrismaClient, Condition, ListingStatus } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import 'dotenv/config';
-import Database from 'better-sqlite3';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { createClient } from '@libsql/client';
+import { PrismaLibSql } from '@prisma/adapter-libsql';
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL ? "Set" : "Not Set");
+console.log("TURSO_DATABASE_URL:", process.env.TURSO_DATABASE_URL ? "Set" : "Not Set");
 
-const adapter = new PrismaBetterSqlite3({ url: 'dev.db' });
+const adapter = new PrismaLibSql({
+    url: process.env.TURSO_DATABASE_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN,
+});
 const prisma = new PrismaClient({ adapter });
 
 async function main() {

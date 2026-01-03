@@ -53,3 +53,4 @@ seed_output*.txt
 # uploads
 /public/uploads/*
 
+.env*.local

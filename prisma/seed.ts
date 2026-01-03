@@ -1,8 +1,12 @@
 import { PrismaClient, Condition, ListingStatus } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import 'dotenv/config';
+import { config } from 'dotenv';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
+
+// Load .env.local first, then .env
+config({ path: '.env.local' });
+config({ path: '.env' });
 
 console.log("POSTGRES_URL:", process.env.POSTGRES_URL ? "Set" : "Not Set");
 

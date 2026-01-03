@@ -1,12 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  engineType = "client"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
   previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 enum UserRole {

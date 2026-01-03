@@ -1,15 +1,13 @@
 import { PrismaClient, Condition, ListingStatus } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import 'dotenv/config';
-import { createClient } from '@libsql/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-console.log("TURSO_DATABASE_URL:", process.env.TURSO_DATABASE_URL ? "Set" : "Not Set");
+console.log("POSTGRES_URL:", process.env.POSTGRES_URL ? "Set" : "Not Set");
 
-const adapter = new PrismaLibSql({
-    url: process.env.TURSO_DATABASE_URL!,
-    authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {

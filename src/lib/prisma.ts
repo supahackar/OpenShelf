@@ -1,17 +1,11 @@
 import { PrismaClient } from '@prisma/client';
-import { createClient } from '@libsql/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-if (!process.env.TURSO_DATABASE_URL) {
-    console.error("TURSO_DATABASE_URL is not set");
-}
-
-const adapter = new PrismaLibSql({
-    url: process.env.TURSO_DATABASE_URL || "",
-    authToken: process.env.TURSO_AUTH_TOKEN,
-});
+const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+const adapter = new PrismaPg(pool);
 
 export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
 

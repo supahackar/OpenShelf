@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum UserRole {
+  STUDENT
+  ADMIN
+}
+
+enum ListingStatus {
+  AVAILABLE
+  REQUESTED
+  HANDED_OVER
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum ReportStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+enum Condition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String?   // For credentials auth
+  image         String?
+  role          UserRole  @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  listings      BookListing[]
+  requests      Request[]     @relation("Requester")
+  
+  // Messaging
+  sentMessages     Message[]
+  conversations    Conversation[] @relation("ConversationParticipants")
+  
+  reports          Report[]
+}
+
+model Category {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  listings  BookListing[]
+}
+
+model CampusLocation {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  listings  BookListing[]
+}
+
+model BookListing {
+  id          String        @id @default(cuid())
+  title       String
+  author      String
+  edition     String?
+  courseCode  String?
+  condition   Condition
+  description String
+  images      ListingImage[]
+  status      ListingStatus @default(AVAILABLE)
+  
+  donorId     String
+  donor       User          @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id])
+  
+  locationId  String
+  location    CampusLocation @relation(fields: [locationId], references: [id])
+  
+  requests    Request[]
+  reports     Report[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Request {
+  id          String        @id @default(cuid())
+  message     String?
+  status      RequestStatus @default(PENDING)
+  
+  listingId   String
+  listing     BookListing   @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  
+  requesterId String
+  requester   User          @relation("Requester", fields: [requesterId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Conversation {
+  id           String    @id @default(cuid())
+  participants User[]    @relation("ConversationParticipants")
+  messages     Message[]
+  
+  // Optional: Link to a specific request context
+  requestId    String?
+  
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  content        String
+  
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  
+  read           Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
+
+model Report {
+  id          String       @id @default(cuid())
+  reason      String
+  status      ReportStatus @default(OPEN)
+  
+  listingId   String
+  listing     BookListing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  
+  reporterId  String
+  reporter    User         @relation(fields: [reporterId], references: [id])
+  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model ListingImage {
+  id        String      @id @default(cuid())
+  url       String
+  listingId String
+  listing   BookListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+

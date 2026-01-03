@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenShelf
+
+OpenShelf is a web application for university students to share used books. It facilitates the donation and request of textbooks, promoting sustainability and accessibility in education.
+
+## Features
+
+- **User Authentication**: Secure login and registration using NextAuth.js (Credentials & Google).
+- **Book Listings**: Students can list books they want to donate with details like title, author, condition, and images.
+- **Search & Browse**: Powerful search and filtering options to find specific books by category, condition, or location.
+- **Request System**: Students can request available books and initiate a conversation with the donor.
+- **Messaging**: Built-in messaging system for donors and requesters to coordinate pickup.
+- **Dashboard**: personalized dashboard for students to manage their listings, requests, and messages.
+- **Admin Panel**: Administrative tools to manage users, listings, and monitor platform activity.
+
+## Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: [NextAuth.js v5](https://authjs.dev/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/) (via shadcn/ui pattern)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- PostgreSQL database
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Clone the repository:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    git clone https://github.com/yourusername/openshelf.git
+    cd openshelf
+    ```
 
-## Learn More
+2.  **Install dependencies:**
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Set up environment variables:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    Copy `.env.example` to `.env` and fill in the required values.
 
-## Deploy on Vercel
+    ```bash
+    cp .env.example .env
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    Required variables:
+    - `DATABASE_URL`: Connection string for your PostgreSQL database.
+    - `AUTH_SECRET`: A random string for NextAuth security.
+    - `AUTH_URL`: The base URL of your app (e.g., `http://localhost:3000`).
+    - `AUTH_GOOGLE_ID` & `AUTH_GOOGLE_SECRET`: (Optional) For Google Sign-In.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  **Initialize the database:**
+
+    ```bash
+    npx prisma migrate dev --name init
+    npx prisma db seed
+    ```
+
+5.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser.
+
+## Project Structure
+
+- `src/app`: Next.js App Router pages and layouts.
+- `src/components`: Reusable UI components.
+- `src/lib`: Utility functions, Prisma client, and server actions.
+- `prisma`: Database schema and seed script.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+[MIT](LICENSE)

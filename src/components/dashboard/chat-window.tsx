@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { Loader2, Send } from "lucide-react"
 
 import { useTranslations } from "next-intl"
+import { useRouter } from "next/navigation"
 
 interface ChatWindowProps {
     conversationId: string
@@ -23,23 +24,26 @@ export function ChatWindow({ conversationId, initialMessages, currentUserId }: C
     const [isLoading, setIsLoading] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null)
 
+    const router = useRouter()
+
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight
         }
     }, [messages])
 
+    // Update local state when props change (from router.refresh)
+    useEffect(() => {
+        setMessages(initialMessages)
+    }, [initialMessages])
+
     // Simple polling for new messages (every 5 seconds)
     useEffect(() => {
         const interval = setInterval(() => {
-            // In a real app, use SWR or React Query or Websockets
-            // For now, we rely on server action revalidation or router.refresh()
-            // But router.refresh() might be heavy.
-            // We'll just skip polling for this MVP to avoid complexity, 
-            // or user can refresh manually.
+            router.refresh()
         }, 5000)
         return () => clearInterval(interval)
-    }, [])
+    }, [router])
 
     async function onSend() {
         if (!inputValue.trim()) return

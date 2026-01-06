@@ -19,11 +19,41 @@ async function main() {
 
     // 1. Categories
     const categories = [
-        'Engineering',
-        'Computer Science',
-        'Mathematics',
-        'Business',
-        'General',
+        'Arabic Language',
+        'Arabic for Non-Native Speakers',
+        'English Literature and Linguistics',
+        'Biological and Environmental Sciences',
+        'Chemistry and Earth Sciences',
+        'Mathematics, Statistics and Physics',
+        'Humanities',
+        'Mass Communication',
+        'Social Sciences',
+        'International Affairs',
+        'Accounting and Information Systems',
+        'Finance and Economics',
+        'Management and Marketing',
+        'Educational Sciences',
+        'Psychological Sciences',
+        'Physical Education',
+        'Architecture and Urban Planning',
+        'Chemical Engineering',
+        'Civil and Environmental Engineering',
+        'Computer Science and Engineering',
+        'Electrical Engineering',
+        'Mechanical and Industrial Engineering',
+        'Technology Innovation and Engineering Education',
+        'Law',
+        'Biomedical Sciences',
+        'Human Nutrition',
+        'Public Health',
+        'Pharmacy',
+        'Medicine',
+        'Nursing',
+        'Dental Medicine',
+        'Quran and Sunnah',
+        'Aqeedah and Dawah',
+        'Fiqh and Usul al-Fiqh',
+        'Sport Sciences'
     ];
 
     for (const name of categories) {
@@ -37,10 +67,16 @@ async function main() {
 
     // 2. Campus Locations
     const locations = [
-        'Library Main Entrance',
-        'Student Center',
-        'Engineering Building',
-        'Cafeteria',
+        'A06 Men’s Foundation',
+        'B04 College of Education (Female)',
+        'B05 Main Men’s',
+        'BCR College of Arts and Sciences',
+        'H08 Business and Economics',
+        'H07 College of Engineering',
+        'H10 Research Complex',
+        'I06 Ibn Al-Baitar',
+        'I09 Law College',
+        'H12 Medicine / Medical College'
     ];
 
     for (const name of locations) {

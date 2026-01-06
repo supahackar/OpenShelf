@@ -16,13 +16,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { signOut } from "next-auth/react"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
+import { useTranslations } from "next-intl"
 
 interface UserNavProps {
     user: any
 }
 
 export function UserNav({ user }: UserNavProps) {
+    const t = useTranslations("UserNav")
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -46,23 +49,23 @@ export function UserNav({ user }: UserNavProps) {
                 <DropdownMenuGroup>
                     <Link href="/dashboard">
                         <DropdownMenuItem>
-                            Dashboard
+                            {t("dashboard")}
                         </DropdownMenuItem>
                     </Link>
                     <Link href="/dashboard/listings">
                         <DropdownMenuItem>
-                            My Listings
+                            {t("myListings")}
                         </DropdownMenuItem>
                     </Link>
                     <Link href="/dashboard/requests">
                         <DropdownMenuItem>
-                            Requests
+                            {t("requests")}
                         </DropdownMenuItem>
                     </Link>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
-                    Log out
+                    {t("logout")}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

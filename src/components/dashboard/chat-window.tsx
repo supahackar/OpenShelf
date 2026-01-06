@@ -8,6 +8,8 @@ import { sendMessage } from "@/lib/actions/messages"
 import { cn } from "@/lib/utils"
 import { Loader2, Send } from "lucide-react"
 
+import { useTranslations } from "next-intl"
+
 interface ChatWindowProps {
     conversationId: string
     initialMessages: (Message & { sender: User })[]
@@ -15,6 +17,7 @@ interface ChatWindowProps {
 }
 
 export function ChatWindow({ conversationId, initialMessages, currentUserId }: ChatWindowProps) {
+    const t = useTranslations("Messages")
     const [messages, setMessages] = useState(initialMessages)
     const [inputValue, setInputValue] = useState("")
     const [isLoading, setIsLoading] = useState(false)
@@ -73,7 +76,7 @@ export function ChatWindow({ conversationId, initialMessages, currentUserId }: C
                                 className={cn(
                                     "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
                                     isMe
-                                        ? "ml-auto bg-primary text-primary-foreground"
+                                        ? "ml-auto bg-primary text-primary-foreground rtl:ml-0 rtl:mr-auto"
                                         : "bg-muted"
                                 )}
                             >
@@ -92,14 +95,14 @@ export function ChatWindow({ conversationId, initialMessages, currentUserId }: C
                     className="flex items-center gap-2"
                 >
                     <Input
-                        placeholder="Type your message..."
+                        placeholder={t("placeholder")}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         disabled={isLoading}
                     />
                     <Button type="submit" size="icon" disabled={isLoading}>
-                        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                        <span className="sr-only">Send</span>
+                        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 rtl:rotate-180" />}
+                        <span className="sr-only">{t("send")}</span>
                     </Button>
                 </form>
             </div>

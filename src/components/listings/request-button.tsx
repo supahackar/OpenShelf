@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/i18n/routing"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -15,6 +15,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { createRequest } from "@/lib/actions/requests"
 import { Loader2 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 interface RequestButtonProps {
     listingId: string
@@ -25,14 +26,17 @@ interface RequestButtonProps {
 
 export function RequestButton({ listingId, donorId, currentUserId, isRequested }: RequestButtonProps) {
     const router = useRouter()
+    const t = useTranslations("BookDetails")
+    const authT = useTranslations("Auth")
+
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [message, setMessage] = useState("Hi, I'm interested in this book. Is it still available?")
+    const [message, setMessage] = useState(t("requestModal.placeholder"))
 
     if (!currentUserId) {
         return (
             <Button onClick={() => router.push("/login")}>
-                Log in to Request
+                {authT("login.title")}
             </Button>
         )
     }
@@ -40,7 +44,7 @@ export function RequestButton({ listingId, donorId, currentUserId, isRequested }
     if (currentUserId === donorId) {
         return (
             <Button variant="secondary" disabled>
-                Your Listing
+                {t("yourListing")}
             </Button>
         )
     }
@@ -48,7 +52,7 @@ export function RequestButton({ listingId, donorId, currentUserId, isRequested }
     if (isRequested) {
         return (
             <Button variant="secondary" disabled>
-                Request Sent
+                {t("alreadyRequested")}
             </Button>
         )
     }
@@ -69,30 +73,30 @@ export function RequestButton({ listingId, donorId, currentUserId, isRequested }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button size="lg">Request Book</Button>
+                <Button size="lg">{t("request")}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Request Book</DialogTitle>
+                    <DialogTitle>{t("requestModal.title")}</DialogTitle>
                     <DialogDescription>
-                        Send a message to the donor to arrange a pickup.
+                        {t("requestModal.description")}
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <Textarea
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Type your message here..."
+                        placeholder={t("requestModal.placeholder")}
                         className="min-h-[100px]"
                     />
                 </div>
-                <DialogFooter>
+                <DialogFooter className="gap-2">
                     <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
-                        Cancel
+                        {t("requestModal.cancel") || "Cancel"}
                     </Button>
                     <Button onClick={onRequest} disabled={loading}>
-                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Send Request
+                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin rtl:mr-0 rtl:ml-2" />}
+                        {t("requestModal.submit")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

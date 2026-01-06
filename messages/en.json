@@ -1,0 +1,243 @@
+{
+    "Common": {
+        "title": "OpenShelf",
+        "description": "Share Knowledge, One Book at a Time.",
+        "search": "Search",
+        "findBook": "Find a Book",
+        "listBook": "List a Book",
+        "donateNow": "Donate Now",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout",
+        "dashboard": "Dashboard",
+        "browse": "Browse",
+        "about": "About",
+        "contact": "Contact",
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "footer": {
+            "description": "The modern way to share and find textbooks at your university. Join our community and help fellow students.",
+            "links": "Quick Links",
+            "browse": "Browse Books",
+            "dashboard": "My Dashboard",
+            "support": "Support",
+            "help": "Help Center",
+            "privacy": "Privacy Policy",
+            "contact": "Contact Us",
+            "contactText": "Have questions? Reach out to us at support@openshelf.edu",
+            "rights": "All rights reserved."
+        }
+    },
+    "HomePage": {
+        "hero": {
+            "badge": "The modern way to share textbooks",
+            "title": "Share Knowledge,",
+            "subtitle": "One Book at a Time.",
+            "description": "OpenShelf connects university students to share textbooks and course materials. Donate books you don't need, or find the ones you do—for free."
+        },
+        "features": {
+            "title": "Why OpenShelf?",
+            "description": "Built by students, for students. Making education more accessible for everyone.",
+            "academic": {
+                "title": "Academic Success",
+                "description": "Get access to the exact textbooks and materials you need for your courses without the high cost."
+            },
+            "community": {
+                "title": "Community Driven",
+                "description": "Join a community of students helping each other. Pay it forward by donating your old books."
+            },
+            "eco": {
+                "title": "Eco-Friendly",
+                "description": "Reduce waste and promote sustainability by recycling textbooks within your campus."
+            }
+        },
+        "cta": {
+            "title": "Ready to clear your shelf?",
+            "description": "Join thousands of students who are already sharing resources and saving money.",
+            "button": "Join Now",
+            "learnMore": "Learn more"
+        }
+    },
+    "BrowsePage": {
+        "title": "Browse Books",
+        "description": "Find the textbooks you need from our community of donors.",
+        "searchPlaceholder": "Search by title, author, or ISBN...",
+        "categoryPlaceholder": "All Categories",
+        "conditionPlaceholder": "Condition",
+        "locationPlaceholder": "Location",
+        "anyLocation": "Any Location",
+        "filterButton": "Filter",
+        "noResults": "No listings found",
+        "noResultsDesc": "Try adjusting your search or filters to find what you're looking for."
+    },
+    "Auth": {
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Enter your credentials to access your account",
+            "noAccount": "Don't have an account?",
+            "back": "Back",
+            "orContinueWith": "Or continue with",
+            "google": "Google",
+            "errors": {
+                "email": "Please enter a valid email address.",
+                "password": "Password must be at least 6 characters.",
+                "invalid": "Invalid credentials"
+            }
+        },
+        "register": {
+            "title": "Create an account",
+            "subtitle": "Enter your details below to create your account",
+            "haveAccount": "Already have an account?",
+            "terms": "By clicking continue, you agree to our",
+            "and": "and",
+            "errors": {
+                "name": "Name must be at least 2 characters.",
+                "email": "Please enter a valid email address.",
+                "password": "Password must be at least 6 characters.",
+                "signIn": "Something went wrong during sign in"
+            }
+        }
+    },
+    "Dashboard": {
+        "welcome": "Welcome back,",
+        "subtitle": "Here's what's happening with your books today.",
+        "stats": {
+            "active": "Active Listings",
+            "pending": "Pending Requests",
+            "unread": "Unread Messages"
+        },
+        "quickActions": {
+            "title": "Quick Actions",
+            "find": {
+                "title": "Find Books",
+                "desc": "Browse available textbooks in your campus."
+            },
+            "donate": {
+                "title": "Donate a Book",
+                "desc": "List your old textbooks to help other students."
+            }
+        },
+        "recentActivity": "Recent Activity",
+        "noActivity": "No recent activity to show.",
+        "viewAll": "View all"
+    },
+    "MyListings": {
+        "title": "My Listings",
+        "description": "Manage your donated books.",
+        "addNew": "Add New",
+        "noListings": "No listings found.",
+        "status": {
+            "AVAILABLE": "Available",
+            "PENDING": "Pending",
+            "HANDED_OVER": "Handed Over"
+        },
+        "actions": {
+            "view": "View",
+            "markHandedOver": "Mark Handed Over",
+            "delete": "Delete",
+            "openMenu": "Open menu"
+        },
+        "confirmations": {
+            "delete": "Are you sure you want to delete this listing?"
+        }
+    },
+    "Requests": {
+        "title": "Requests",
+        "description": "Manage incoming requests for your books and track requests you've made.",
+        "tabs": {
+            "incoming": "Incoming",
+            "outgoing": "Outgoing"
+        },
+        "noIncoming": "No incoming requests.",
+        "noOutgoing": "No outgoing requests.",
+        "status": {
+            "PENDING": "Pending",
+            "APPROVED": "Approved",
+            "REJECTED": "Rejected",
+            "COMPLETED": "Completed",
+            "CANCELLED": "Cancelled"
+        },
+        "actions": {
+            "approve": "Approve",
+            "reject": "Reject",
+            "message": "Message"
+        },
+        "requestedBy": "Requested by {name}",
+        "sent": "Request sent"
+    },
+    "Messages": {
+        "title": "Messages",
+        "description": "Your conversations with other students.",
+        "noMessages": "No messages yet.",
+        "placeholder": "Type a message...",
+        "send": "Send",
+        "chatWith": "Chat with {name}"
+    },
+    "NewListing": {
+        "title": "Create a Listing",
+        "description": "Fill in the details about the book you want to donate.",
+        "form": {
+            "title": "Book Title",
+            "author": "Author",
+            "edition": "Edition (Optional)",
+            "courseCode": "Course Code (Optional)",
+            "condition": "Condition",
+            "category": "Category",
+            "location": "Campus Location",
+            "description": "Description",
+            "submit": "Create Listing",
+            "placeholders": {
+                "title": "e.g. Introduction to Algorithms",
+                "author": "e.g. Thomas H. Cormen",
+                "edition": "e.g. 3rd Edition",
+                "courseCode": "e.g. CS101",
+                "description": "Describe the book's condition, any markings, etc."
+            },
+            "errors": {
+                "title": "Title must be at least 2 characters.",
+                "author": "Author must be at least 2 characters.",
+                "condition": "Please select a condition.",
+                "category": "Please select a category.",
+                "location": "Please select a location.",
+                "description": "Description must be at least 10 characters."
+            }
+        },
+        "conditions": {
+            "NEW": "New",
+            "LIKE_NEW": "Like New",
+            "GOOD": "Good",
+            "FAIR": "Fair",
+            "POOR": "Poor"
+        }
+    },
+    "Nav": {
+        "overview": "Overview",
+        "myListings": "My Listings",
+        "newListing": "New Listing",
+        "requests": "Requests",
+        "messages": "Messages",
+        "signOut": "Sign Out"
+    },
+    "UserNav": {
+        "dashboard": "Dashboard",
+        "myListings": "My Listings",
+        "requests": "Requests",
+        "logout": "Log out"
+    },
+    "BookDetails": {
+        "donatedBy": "Donated by {name}",
+        "listedAgo": "Listed {time} ago",
+        "condition": "Condition",
+        "courseCode": "Course Code",
+        "edition": "Edition",
+        "description": "Description",
+        "request": "Request Book",
+        "alreadyRequested": "Request Sent",
+        "requestModal": {
+            "title": "Request this book",
+            "description": "Send a message to the donor to coordinate the hand-over.",
+            "placeholder": "Hi, I'm interested in this book. When can we meet?",
+            "submit": "Send Request"
+        }
+    }
+}

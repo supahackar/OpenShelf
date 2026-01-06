@@ -4,7 +4,7 @@ import * as React from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/i18n/routing"
 import { Loader2, Upload, X } from "lucide-react"
 import Image from "next/image"
 
@@ -21,16 +21,19 @@ import {
 } from "@/components/ui/select"
 import { createListing } from "@/lib/actions/listings"
 import { Condition } from "@prisma/client"
+import { useTranslations } from "next-intl"
 
-const formSchema = z.object({
-    title: z.string().min(3, "Title must be at least 3 characters"),
-    author: z.string().min(2, "Author must be at least 2 characters"),
+const createFormSchema = (t: any) => z.object({
+    title: z.string().min(2, t("form.errors.title")),
+    author: z.string().min(2, t("form.errors.author")),
     edition: z.string().optional(),
     courseCode: z.string().optional(),
-    condition: z.nativeEnum(Condition),
-    description: z.string().min(10, "Description must be at least 10 characters"),
-    categoryId: z.string().min(1, "Category is required"),
-    locationId: z.string().min(1, "Location is required"),
+    condition: z.nativeEnum(Condition, {
+        message: t("form.errors.condition"),
+    }),
+    description: z.string().min(10, t("form.errors.description")),
+    categoryId: z.string().min(1, t("form.errors.category")),
+    locationId: z.string().min(1, t("form.errors.location")),
     images: z.array(z.string()).max(5, "Maximum 5 images"),
 })
 
@@ -40,10 +43,13 @@ interface CreateListingFormProps {
 }
 
 export function CreateListingForm({ categories, locations }: CreateListingFormProps) {
+    const t = useTranslations("NewListing")
     const router = useRouter()
     const [isLoading, setIsLoading] = React.useState(false)
     const [uploading, setUploading] = React.useState(false)
     const [images, setImages] = React.useState<string[]>([])
+
+    const formSchema = React.useMemo(() => createFormSchema(t), [t])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -119,32 +125,32 @@ export function CreateListingForm({ categories, locations }: CreateListingFormPr
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                    <Label htmlFor="title">Book Title</Label>
-                    <Input id="title" {...form.register("title")} placeholder="e.g. Introduction to Algorithms" />
+                    <Label htmlFor="title">{t("form.title")}</Label>
+                    <Input id="title" {...form.register("title")} placeholder={t("form.placeholders.title")} />
                     {form.formState.errors.title && (
                         <p className="text-sm text-red-500">{form.formState.errors.title.message}</p>
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="author">Author</Label>
-                    <Input id="author" {...form.register("author")} placeholder="e.g. Cormen" />
+                    <Label htmlFor="author">{t("form.author")}</Label>
+                    <Input id="author" {...form.register("author")} placeholder={t("form.placeholders.author")} />
                     {form.formState.errors.author && (
                         <p className="text-sm text-red-500">{form.formState.errors.author.message}</p>
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="edition">Edition (Optional)</Label>
-                    <Input id="edition" {...form.register("edition")} placeholder="e.g. 3rd" />
+                    <Label htmlFor="edition">{t("form.edition")}</Label>
+                    <Input id="edition" {...form.register("edition")} placeholder={t("form.placeholders.edition")} />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="courseCode">Course Code (Optional)</Label>
-                    <Input id="courseCode" {...form.register("courseCode")} placeholder="e.g. CS101" />
+                    <Label htmlFor="courseCode">{t("form.courseCode")}</Label>
+                    <Input id="courseCode" {...form.register("courseCode")} placeholder={t("form.placeholders.courseCode")} />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="category">Category</Label>
+                    <Label htmlFor="category">{t("form.category")}</Label>
                     <Select onValueChange={(val) => form.setValue("categoryId", val)} defaultValue={form.getValues("categoryId")}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue placeholder={t("form.category")} />
                         </SelectTrigger>
                         <SelectContent>
                             {categories.map((c) => (
@@ -157,23 +163,23 @@ export function CreateListingForm({ categories, locations }: CreateListingFormPr
                     )}
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="condition">Condition</Label>
+                    <Label htmlFor="condition">{t("form.condition")}</Label>
                     <Select onValueChange={(val) => form.setValue("condition", val as Condition)} defaultValue={Condition.GOOD}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select condition" />
+                            <SelectValue placeholder={t("form.condition")} />
                         </SelectTrigger>
                         <SelectContent>
                             {Object.values(Condition).map((c) => (
-                                <SelectItem key={c} value={c}>{c.replace("_", " ")}</SelectItem>
+                                <SelectItem key={c} value={c}>{t(`conditions.${c}`)}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="location">Campus Location</Label>
+                    <Label htmlFor="location">{t("form.location")}</Label>
                     <Select onValueChange={(val) => form.setValue("locationId", val)} defaultValue={form.getValues("locationId")}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select location" />
+                            <SelectValue placeholder={t("form.location")} />
                         </SelectTrigger>
                         <SelectContent>
                             {locations.map((l) => (
@@ -188,8 +194,8 @@ export function CreateListingForm({ categories, locations }: CreateListingFormPr
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea id="description" {...form.register("description")} placeholder="Describe the book condition and any other details..." />
+                <Label htmlFor="description">{t("form.description")}</Label>
+                <Textarea id="description" {...form.register("description")} placeholder={t("form.placeholders.description")} />
                 {form.formState.errors.description && (
                     <p className="text-sm text-red-500">{form.formState.errors.description.message}</p>
                 )}
@@ -204,7 +210,7 @@ export function CreateListingForm({ categories, locations }: CreateListingFormPr
                             <button
                                 type="button"
                                 onClick={() => removeImage(index)}
-                                className="absolute right-1 top-1 rounded-full bg-black/50 p-1 text-white hover:bg-black/70"
+                                className="absolute right-1 top-1 rounded-full bg-black/50 p-1 text-white hover:bg-black/70 rtl:right-auto rtl:left-1"
                             >
                                 <X className="h-3 w-3" />
                             </button>
@@ -222,8 +228,8 @@ export function CreateListingForm({ categories, locations }: CreateListingFormPr
             </div>
 
             <Button type="submit" disabled={isLoading || uploading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create Listing
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin rtl:mr-0 rtl:ml-2" />}
+                {t("form.submit")}
             </Button>
         </form>
     )

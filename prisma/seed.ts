@@ -15,6 +15,19 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+    console.log('Cleaning up existing data...');
+    // Delete in order to respect foreign key constraints
+    await prisma.listingImage.deleteMany();
+    await prisma.report.deleteMany();
+    await prisma.request.deleteMany();
+    await prisma.message.deleteMany();
+    await prisma.conversation.deleteMany();
+    await prisma.bookListing.deleteMany();
+    await prisma.category.deleteMany();
+    await prisma.campusLocation.deleteMany();
+    // Note: We keep Users to avoid logging everyone out, but you can delete them if needed
+    // await prisma.user.deleteMany();
+
     console.log('Start seeding...');
 
     // 1. Categories
@@ -127,9 +140,9 @@ async function main() {
     console.log('Users seeded.');
 
     // 4. Listings
-    const csCategory = await prisma.category.findUnique({ where: { name: 'Computer Science' } });
-    const engCategory = await prisma.category.findUnique({ where: { name: 'Engineering' } });
-    const libLocation = await prisma.campusLocation.findUnique({ where: { name: 'Library Main Entrance' } });
+    const csCategory = await prisma.category.findUnique({ where: { name: 'Computer Science and Engineering' } });
+    const engCategory = await prisma.category.findUnique({ where: { name: 'Electrical Engineering' } });
+    const libLocation = await prisma.campusLocation.findUnique({ where: { name: 'H07 College of Engineering' } });
 
     if (!csCategory || !engCategory || !libLocation) {
         throw new Error('Categories or locations not found');

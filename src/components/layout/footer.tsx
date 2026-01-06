@@ -22,13 +22,14 @@ export async function Footer() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><Link href="/browse" className="hover:text-primary transition-colors">{t("footer.browse")}</Link></li>
                             <li><Link href="/dashboard" className="hover:text-primary transition-colors">{t("footer.dashboard")}</Link></li>
+                            <li><Link href="/about" className="hover:text-primary transition-colors">{t("about")}</Link></li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-semibold mb-4">{t("footer.support")}</h4>
                         <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary transition-colors">{t("footer.help")}</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">{t("footer.privacy")}</Link></li>
+                            <li><Link href="/about" className="hover:text-primary transition-colors">{t("footer.help")}</Link></li>
+                            <li><Link href="/about" className="hover:text-primary transition-colors">{t("footer.privacy")}</Link></li>
                         </ul>
                     </div>
                     <div>
